@@ -5,11 +5,13 @@ export const render = ({
 }: {
   shadow: ShadowRoot | null,
   html: string,
-  css: string,
+  css?: string,
 }) => {
   if (!shadow) return
-  const sheet = new CSSStyleSheet()
-  sheet.replaceSync(css)
-  shadow.adoptedStyleSheets = [sheet]
+  if (css) {
+    const sheet = new CSSStyleSheet()
+    sheet.replaceSync(css)
+    shadow.adoptedStyleSheets = [sheet]
+  }
   shadow.innerHTML = html
 }
